@@ -28,31 +28,42 @@ public_users.post("/register", (req,res) => {
 
 // Get the book list available in the shop
 public_users.get('/',function (req, res) {
-  //Write your code here
-  return res.status(300).json({message: "Yet to be implemented"});
+  //Write your code here - similar to functionality in Practice Lab
+  res.send(JSON.stringify(books,null,4));
+  //res.status(200);
+
 });
 
 // Get book details based on ISBN
 public_users.get('/isbn/:isbn',function (req, res) {
   //Write your code here
-  return res.status(300).json({message: "Yet to be implemented"});
+    // Retrieve the isbn parameter from the request URL and send the corresponding friend's details
+    const isbn = req.params.isbn;
+    res.send(books[isbn]);
  });
   
 // Get book details based on author
+// Need to filter on author coming from request and send that back
+
 public_users.get('/author/:author',function (req, res) {
   //Write your code here
-  return res.status(300).json({message: "Yet to be implemented"});
+  const author = req.params.author;
+  res.send(books[author]);
 });
 
 // Get all books based on title
+// Need to filter on title coming from request and send that back
 public_users.get('/title/:title',function (req, res) {
   //Write your code here
-  return res.status(300).json({message: "Yet to be implemented"});
+  const title = req.params.title;
+  res.send(books[title]);
 });
 
 //  Get book review
 public_users.get('/review/:isbn',function (req, res) {
   //Write your code here
+  // Need get book on ISBN and then send back reviews books[isbn].review.[]
+
   return res.status(300).json({message: "Yet to be implemented"});
 });
 
