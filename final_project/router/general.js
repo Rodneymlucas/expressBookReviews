@@ -13,7 +13,7 @@ public_users.post("/register", (req,res) => {
   // Check if both username and password are provided
   if (username && password) {
       // Check if the user does not already exist
-      if (!doesExist(username)) {
+      if (!isValid(username)) {
           // Add the new user to the users array
           users.push({"username": username, "password": password});
           return res.status(200).json({message: "User successfully registered. Now you can login"});
@@ -48,7 +48,8 @@ public_users.get('/isbn/:isbn',function (req, res) {
 public_users.get('/author/:author',function (req, res) {
   //Write your code here
   const author = req.params.author;
-  res.send(books[author]);
+  const booksByAuthor = books.filter(author => author === books.author);
+  res.send(booksByAuthor);
 });
 
 // Get all books based on title
@@ -63,7 +64,8 @@ public_users.get('/title/:title',function (req, res) {
 public_users.get('/review/:isbn',function (req, res) {
   //Write your code here
   // Need get book on ISBN and then send back reviews books[isbn].review.[]
-
+    const isbn = req.params.isbn;
+    res.send(books[isbn].reviews)
   return res.status(300).json({message: "Yet to be implemented"});
 });
 

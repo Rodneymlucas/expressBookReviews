@@ -17,7 +17,7 @@ const isValid = (username)=>{ //returns boolean
     } else {
         return false;
     }
-
+}
 
 
 const authenticatedUser = (username,password)=>{ //returns boolean
@@ -33,7 +33,7 @@ const authenticatedUser = (username,password)=>{ //returns boolean
         return false;
     }
 }
-}
+
 
 //only registered users can login
 regd_users.post("/login", (req,res) => {
