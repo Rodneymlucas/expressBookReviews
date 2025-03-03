@@ -18,7 +18,7 @@ const isValid = (username)=>{ //returns boolean
         return false;
     }
 
-}
+
 
 const authenticatedUser = (username,password)=>{ //returns boolean
 //write code to check if username and password match the one we have in records. - copied from Prac Lab
