@@ -66,6 +66,7 @@ regd_users.post("/login", (req,res) => {
 
 // Add a book review
 regd_users.post("/auth/review/:isbn", (req, res) => {
+    console.log("inside the /auth/review/isbn portion")
     const isbn = req.params.isbn;
 
     const review = req.body.review; // Assuming review is passed as a query parameter
@@ -80,11 +81,11 @@ regd_users.post("/auth/review/:isbn", (req, res) => {
 
     if (existingReview) {
         // Update the existing review
-        existingReview.text = review;
+        //existingReview.text = review;
         res.send('Review updated successfully.');
     } else {
         // Add a new review
-        addNewReview({ username, isbn, review });
+        //addNewReview({ username, isbn, review });
         res.send('Review added successfully.');
     }
 });
