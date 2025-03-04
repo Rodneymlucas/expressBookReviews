@@ -73,8 +73,11 @@ regd_users.put("/auth/review/:isbn", (req, res) => {
   //books[isbn][reviews][reviewer] = review from the request
   //if successful send back a message so 
   //else send back not able to find that book requested
+    const isbn = req.params.isbn;
+    console.log("value of isbn is " + isbn )
+    books[isbn].reviews.push(req.body);
 
-  return res.status(300).json({message: "Book reviews yet to be implemented"});
+  return res.status(200).json({message: "Book review added"});
 });
 
 module.exports.authenticated = regd_users;
