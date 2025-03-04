@@ -65,20 +65,34 @@ regd_users.post("/login", (req,res) => {
 
 
 // Add a book review
-regd_users.put("/auth/review/:isbn", (req, res) => {
-  //Write your code here
-  //not sure about this following the auth path but will try
-  //get field from request like req.review and then add to books[correct one].reviews[next slot]
-  //get the ISBN from the query params like const isbn = req.params.isbn
-  //books[isbn][reviews][reviewer] = review from the request
-  //if successful send back a message so 
-  //else send back not able to find that book requested
+regd_users.post("/auth/review/:isbn", (req, res) => {
     const isbn = req.params.isbn;
-    console.log("value of isbn is " + isbn )
-    books[isbn].reviews.push(req.body);
 
-  return res.status(200).json({message: "Book review added"});
+    const review = req.body.review; // Assuming review is passed as a query parameter
+    const username = req.session.username; // Get the username from the session
+
+    if (!isbn || !review) {
+        return res.status(400).send('ISBN and review are required.');
+    }
+
+    // Assuming you have a function to find a review by username and ISBN
+    let existingReview = findReviewByUserAndISBN(username, isbn);
+
+    if (existingReview) {
+        // Update the existing review
+        existingReview.text = review;
+        res.send('Review updated successfully.');
+    } else {
+        // Add a new review
+        addNewReview({ username, isbn, review });
+        res.send('Review added successfully.');
+    }
 });
+
+const findReviewByUserAndISBN = (username, isbn)=>{ //returns boolean
+    return true;
+}
+    
 
 module.exports.authenticated = regd_users;
 module.exports.isValid = isValid;
