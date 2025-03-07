@@ -66,13 +66,14 @@ regd_users.post("/login", (req,res) => {
 
 
 // Add a book review - Task 8
-regd_users.post("/review/:review/:isbn", (req, res) => {
+regd_users.post("/auth/review/:isbn", (req, res) => {
     console.log("inside the review functionality")
     //code suggested from AI assistance inside of the lab environment
-    const { isbn, review } = req.query; // Assuming review is passed as a query parameter
+    const isbn = req.query; 
+    const userReview = req.body.Review
     const username = req.session.username; // Get the username from the session
 
-    if (!isbn || !review) {
+    if (!isbn || !userReview) {
         return res.status(400).send('ISBN and review are required.');
     }
 
