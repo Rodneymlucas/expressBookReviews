@@ -88,11 +88,9 @@ function getBooksByIsbn(searchIsbn) {
 // Get book details based on author - Task 3 and Task 12
 public_users.get('/author/:author',function (req, res) {
     const author = req.params.author;
-
     getBooksByAuthor(author)
     .then(returnedBooksByAuthor => {
         console.log('Found books by author:', author);
-//        res.send(returnedBooksByAuthor);
         res.send(returnedBooksByAuthor);
     })
     .catch(error => {
@@ -107,7 +105,7 @@ function getBooksByAuthor(searchAuthor) {
     return new Promise((resolve, reject) => {
         // Simulate an asynchronous operation, e.g., reading from a database
         setTimeout(() => {
-            resultBooksByAuthor = filterBooksByAuthor(books, searchAuthor)
+        const resultBooksByAuthor = Object.values(books).filter(book => book.author === searchAuthor);
             if (resultBooksByAuthor) {
             resolve(resultBooksByAuthor);
         } else {
@@ -115,10 +113,6 @@ function getBooksByAuthor(searchAuthor) {
         }
         }, 10);
     });
-}
-
-function filterBooksByAuthor(books, searchAuthor) {
-  return books.author = searchAuthor;
 }
 
 // Get all books based on title - Task 4 and Task 13 
