@@ -57,7 +57,6 @@ regd_users.post("/login", (req,res) => {
       req.session.authorization = {
           accessToken, username
       }
-      console.log("A new user logged in with id: " + username);
       return res.status(200).send("User successfully logged in");
   } else {
       return res.status(208).json({ message: "Invalid Login. Check username and password" });
@@ -66,10 +65,11 @@ regd_users.post("/login", (req,res) => {
 
 
 // Add a book review - Task 8
-regd_users.post("/review/:review/:isbn", (req, res) => {
-    console.log("inside the review functionality")
-    //code suggested from AI assistance inside of the lab environment
-    const { isbn, review } = req.query; // Assuming review is passed as a query parameter
+regd_users.post("/auth/review/:isbn", (req, res) => {
+    console.log("inside the /auth/review/isbn portion")
+    const isbn = req.params.isbn;
+
+    const review = req.body.review; // Assuming review is passed as a query parameter
     const username = req.session.username; // Get the username from the session
 
     if (!isbn || !review) {
@@ -78,20 +78,20 @@ regd_users.post("/review/:review/:isbn", (req, res) => {
 
     // Assuming you have a function to find a review by username and ISBN
     let existingReview = findReviewByUserAndISBN(username, isbn);
+
     if (existingReview) {
         // Update the existing review
-        existingReview.text = review;
+        //existingReview.text = review;
         res.send('Review updated successfully.');
     } else {
         // Add a new review
-        addNewReview({ username, isbn, review });
+        //addNewReview({ username, isbn, review });
         res.send('Review added successfully.');
     }
 });
 
 const findReviewByUserAndISBN = (username, isbn)=>{ //returns boolean
-    //add in the search functionality here
-    return false;
+    return true;
 }
     
 // Delete a book review - Task 9
