@@ -109,7 +109,7 @@ function getBooksByAuthor(searchAuthor) {
             if (resultBooksByAuthor) {
             resolve(resultBooksByAuthor);
         } else {
-            reject('Error fetching books');
+            reject('Error fetching books by author');
         }
         }, 10);
     });
@@ -121,18 +121,15 @@ public_users.get('/title/:title',function (req, res) {
   //Write your code here
   const title = req.params.title;
 
-    getBooksByTitle(title)
-    .then(returnedBooksByTitle => {
-        console.log('Found books by title:', title);
-        res.send(returnedBooksByTitle);
-    })
-    .catch(error => {
-        console.error('Error:', error);
-        res.status(404);
-    });
-
-  //const booksByAuthor = books.filter(author => author === books.author);
-  //res.send(booksByAuthor);
+  getBooksByTitle(title)
+  .then(returnedBooksByTitle => {
+      console.log('Found books by title:', title);
+      res.send(returnedBooksByTitle);
+  })
+  .catch(error => {
+      console.error('Error:', error);
+      res.status(404);
+  });
 
 });
 
@@ -141,13 +138,11 @@ function getBooksByTitle(searchTitle) {
     return new Promise((resolve, reject) => {
         // Simulate an asynchronous operation, e.g., reading from a database
         setTimeout(() => {
-            //having filter problems send isbn 8 as short term test
-            //            resultBooksByAuthor = books[searchAuthor];
-            resultBooksByTitle = books[1];
+        const resultBooksByTitle = Object.values(books).filter(book => book.title === searchTitle);
             if (resultBooksByTitle) {
             resolve(resultBooksByTitle);
         } else {
-            reject('Error fetching books');
+            reject('Error fetching books by title');
         }
         }, 10);
     });
