@@ -30,7 +30,6 @@ public_users.post("/register", (req,res) => {
 
 // Get the book list available in the shop - Task 1 and Task 10
 public_users.get('/',function (req, res) {
-  //Write your code here - similar to functionality in Practice Lab
     getAllBooks()
     .then(books => {
         console.log('Books:', books);
@@ -40,10 +39,7 @@ public_users.get('/',function (req, res) {
         console.error('Error:', error);
         res.status(404);
     });
-
-
 });
-
 
 //Used with Task 1 and Task 10
 function getAllBooks() {
@@ -61,10 +57,7 @@ function getAllBooks() {
 
 // Get book details based on ISBN Task 2 and Task 11
 public_users.get('/isbn/:isbn',function (req, res) {
-  //Write your code here
-    // Retrieve the isbn parameter from the request URL and send the corresponding friend's details
     const isbn = req.params.isbn;
-
     getBooksByIsbn(isbn)
     .then(returnedBook => {
         console.log('Found book by ISBN#:', isbn);
@@ -74,9 +67,6 @@ public_users.get('/isbn/:isbn',function (req, res) {
         console.error('Error:', error);
         res.status(404);
     });
-
-
-
 });
 
 //Used with Task 2 and Task 11
@@ -96,26 +86,20 @@ function getBooksByIsbn(searchIsbn) {
  
 
 // Get book details based on author - Task 3 and Task 12
-// Need to filter on author coming from request and send that back
-
 public_users.get('/author/:author',function (req, res) {
-  //Write your code here
-
     const author = req.params.author;
 
     getBooksByAuthor(author)
     .then(returnedBooksByAuthor => {
         console.log('Found books by author:', author);
 //        res.send(returnedBooksByAuthor);
-        res.send(books[2]);
+        res.send(returnedBooksByAuthor);
     })
     .catch(error => {
         console.error('Error:', error);
         res.status(404);
     });
 
-  //const booksByAuthor = books.filter(author => author === books.author);
-  //res.send(booksByAuthor);
 });
 
 //Used with Task 3 and Task 12
@@ -123,9 +107,7 @@ function getBooksByAuthor(searchAuthor) {
     return new Promise((resolve, reject) => {
         // Simulate an asynchronous operation, e.g., reading from a database
         setTimeout(() => {
-            //having filter problems send isbn 8 as short term test
-            //            resultBooksByAuthor = books[searchAuthor];
-            resultBooksByAuthor = books[8];
+            resultBooksByAuthor = filterBooksByAuthor(books, searchAuthor)
             if (resultBooksByAuthor) {
             resolve(resultBooksByAuthor);
         } else {
@@ -135,6 +117,9 @@ function getBooksByAuthor(searchAuthor) {
     });
 }
 
+function filterBooksByAuthor(books, searchAuthor) {
+  return books.author = searchAuthor;
+}
 
 // Get all books based on title - Task 4 and Task 13 
 // Need to filter on title coming from request and send that back
